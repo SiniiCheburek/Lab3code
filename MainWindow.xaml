@@ -1,0 +1,73 @@
+﻿<Window x:Class="WpfApp4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp4"
+        mc:Ignorable="d"
+        Title="Хрестики-нулики"
+        Height="600"
+        Width="600">
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="ХРЕСТИКИ-НУЛИКИ"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,15"/>
+
+        
+        <ItemsControl Grid.Row="1"
+                      ItemsSource="{Binding Cells}"
+                      Margin="20">
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="3"
+                                 Columns="3"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+
+                    <Button Content="{Binding Value}"
+                            FontSize="50"
+                            Margin="3"
+                            Command="{Binding DataContext.MakeMoveCommand,
+                                      RelativeSource={RelativeSource AncestorType=Window}}"
+                            CommandParameter="{Binding}"
+                            IsEnabled="{Binding IsEnabled}"/>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+        </ItemsControl>
+
+        <TextBlock Grid.Row="2"
+                   Text="{Binding StatusMessage}"
+                   FontSize="22"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   Margin="0,10"/>
+
+        <Button Grid.Row="2"
+                Content="Нова гра"
+                Command="{Binding NewGameCommand}"
+                Width="140"
+                Height="40"
+                HorizontalAlignment="Center"
+                Margin="0,34,0,25" Grid.RowSpan="2"/>
+
+    </Grid>
+
+</Window>
